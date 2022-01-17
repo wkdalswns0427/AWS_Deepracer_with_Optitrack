@@ -108,7 +108,7 @@ namespace vrpn_client_ros
     rclcpp::expand_topic_or_service_name(
             tracker_name,
             nh->get_name(),
-            nh->get_namespace( "start creating VRPNClientROS")
+            nh->get_namespace()
     );  // will throw an error if invalid
 
     this->tracker_name = tracker_name;
