@@ -20,7 +20,7 @@ def generate_launch_description():
             package='vrpn_client_ros',
             node_executable='vrpn_client_node',
             output='screen',
-            emulate_tty=False,
+            #emulate_tty=False,
             parameters=[parameters_file_path],
         ),
     ])
