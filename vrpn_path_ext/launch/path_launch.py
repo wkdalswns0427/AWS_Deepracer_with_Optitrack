@@ -25,7 +25,7 @@ def generate_launch_description():
         ),
         launch_ros.actions.Node(
             package='vrpn_path_ext',
-            node_executable='path_extraction',
+            node_executable='scripts/pathExtRos_new.py', # check your workspace/install/~package_name/lib for executable file
             output='screen',
             #emulate_tty=False,
             #parameters=[parameters_file_path],
