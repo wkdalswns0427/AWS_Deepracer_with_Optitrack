@@ -21,7 +21,7 @@ from ament_index_python.packages import get_package_share_directory #for touchPa
 class PathExtraction(Node):
 
     def __init__(self):
-        super().__init__('path_extraction')
+        super().__init__('vrpn_path_ext')
         
         print('ros init')
         # ROS Publisher
@@ -45,10 +45,12 @@ class PathExtraction(Node):
         self.timer = self.create_timer(timer_period, self.timer_callback)
 
     def timer_callback(self):
-        print('loop start: timer_callback')
+        # print('loop start: timer_callback')
         try:
-            while not rclpy.ok():
+            while rclpy.ok():
+                # print('loop start: timer_callback')
                 if self.is_status == True :
+                    print('loop start: timer_callback')
                     self.savePath()
                 #rate.sleep()
         except KeyboardInterrupt:
@@ -57,12 +59,13 @@ class PathExtraction(Node):
     def configure(self):
         self.path_directory_name = self.declare_parameter("Path_Ext")
         self.path_file_name = self.declare_parameter("extractedPath.csv")
-        self.min_sample_distance = self.declare_parameter(0.15)
+        self.min_sample_distance = self.declare_parameter("0.15")
 
-    def touchPathfile(self):
-        pkg_path = get_package_share_directory('path_extraction')
-        full_path = pkg_path + '/' + self.path_directory_name + '/' + self.path_file_name
-        self.f = open(full_path, 'w')
+    def touchPathFile(self):
+        pkg_path = get_package_share_directory('vrpn_path_ext')
+        # full_path = pkg_path + '/' + self.path_directory_name + '/' + self.path_file_name
+        full_path = pkg_path + '/' +'path_ext' + '/' +'extractedPath.csv'
+        self.f =open(full_path, 'w')
     
     def poseCallback(self, msg):
         self.is_status = True
@@ -111,12 +114,14 @@ class PathExtraction(Node):
             self.path_rviz_pub.publish(self.path_msg)
 
 if __name__ == '__main__':
+    rclpy.init()
     try:
-        path_extracter = PathExtraction()
+        path_extractor = PathExtraction()
+        rclpy.spin(path_extractor)
+
     except KeyboardInterrupt: 
+        rclpy.shutdown()
         pass
+        
     # Found https://github.com/ros2/rclpy/issues/22
     # Found https://github.com/ros2/rclpy/issues/224
-    # but i can't make out what they are saying..
-
-rclpy.shutdown()
