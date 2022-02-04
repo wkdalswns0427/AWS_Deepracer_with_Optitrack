@@ -13,7 +13,7 @@ change server IP to your optitrack compatible pc
 ```
 ros2 launch vrpn_client_ros vrpn_launch.launch.py & ros2 run rviz2 rviz2
 ```
-
+---
 ## vrpn_path_ext
 * path extraction added along with VRPN client
 * requires both python and cpp 
