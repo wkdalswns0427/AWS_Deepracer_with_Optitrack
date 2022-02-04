@@ -13,9 +13,6 @@ from math import pi, cos, sin, sqrt, pow, atan2
 from nav_msgs.msg import Path, Odometry
 from sensor_msgs.msg import NavSatFix
 from geometry_msgs.msg import PoseStamped
-# Found https://automaticaddison.com/how-to-create-a-tf-listener-using-ros-2-and-python/
-# import tf2_ros 
-# #it says that tf2_ros exists but i can't find it... maybe i need to download it?
 
 from rclpy.node import Node #added line
 from ament_index_python.packages import get_package_share_directory #for touchPathFile
@@ -108,7 +105,3 @@ if __name__ == '__main__':
         path_extractor.f.close()
         rclpy.shutdown()
         pass
-        
-    # Found https://github.com/ros2/rclpy/issues/22
-    # Found https://github.com/ros2/rclpy/issues/224
-    # but i can't make out what they are saying..
