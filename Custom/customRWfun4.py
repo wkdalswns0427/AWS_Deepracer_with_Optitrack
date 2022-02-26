@@ -1,3 +1,4 @@
+import math
 def reward_function(params):
     # Example of rewarding the agent to follow center line
 
@@ -15,7 +16,7 @@ def reward_function(params):
     # rewards for each cases
     reward_1 = 1.0
     reward_2 = 1.0
-    reward_3 = 1.0
+    reward_3 = 2.0
 
     # 5markers that are at varying distances away from the center line
     marker_1 = 0.1 * track_width
@@ -27,9 +28,12 @@ def reward_function(params):
     marker_5 = 0.5 * track_width
     
     # dirextion
-    future_point = waypoints[closest_waypoints[1]+1]
     next_point = waypoints[closest_waypoints[1]]
     prev_point = waypoints[closest_waypoints[0]]
+    if closest_waypoints[1] == len(waypoints)-1:
+        future_point = waypoints[1]
+    else: 
+        future_point = waypoints[closest_waypoints[1]+1] 
     direction_uno = math.atan2(next_point[1] - prev_point[1], next_point[0] - prev_point[0])
     direction_uno = math.degrees(direction_uno)
     direction_dos = math.atan2(future_point[1] - next_point[1], future_point[0] - next_point[0])
@@ -58,15 +62,9 @@ def reward_function(params):
     
      # manage speed
     dirdiff = abs(direction_uno - direction_dos)    
-    if difdiff < 2:
-        if 4.0 <speed and speed <= 5.0:
-            reward_2 = 2.0
-        elif 3.0 <speed and speed <= 4.0:
-            reward_2 = 1.8
-        elif 2.0 <speed and speed <= 3.0:
+    if dirdiff < 2:
+        if 1.0 <speed and speed <= 2.0:
             reward_2 = 1.5
-        elif 1.0 <speed and speed <= 2.0:
-            reward_2 = 1.2
         elif speed <= 1.0:
             reward_2 = 0.3
             
@@ -79,6 +77,6 @@ def reward_function(params):
     reward = 0.6*reward_1 + 0.25*reward_2 + 0.15*reward_3
     
     if not isLeft:
-        reward *= 0.8
+        reward *= 0.6
     
     return float(reward)
