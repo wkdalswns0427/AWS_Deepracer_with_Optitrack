@@ -10,6 +10,7 @@ def reward_function(params):
     speed = params['speed']
     angle = abs(params['steering_angle'])
     heading = params['heading']
+    isLeft = params['is_left_of_center']
     
     # rewards for each cases
     float reward_1, reward_2, reward_3
@@ -67,6 +68,9 @@ def reward_function(params):
         elif speed <= 1.0:
             reward_2 = 0.3
             
-    #waypoints
+   
     reward = 0.6*reward_1 + 0.4*reward_2
+    if not isLeft:
+        reward *= 0.8
+    
     return float(reward)
